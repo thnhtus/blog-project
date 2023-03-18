@@ -1,7 +1,0 @@
-.home {
-  @apply w-full;
-
-  .abc {
-    @apply text-lg text-blue-800 font-bold;
-  }
-}
