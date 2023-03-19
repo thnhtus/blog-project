@@ -1,7 +1,14 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
+import superagent from "superagent";
 
 const HomePage: React.FC = () => {
+  useEffect(() => {
+    superagent.get("/api/user").then((res) => {
+      console.log(res.body);
+    });
+  }, []);
+
   return (
     <div className="mt-6">
       <div className="relative">
@@ -44,7 +51,26 @@ const HomePage: React.FC = () => {
       </div>
       <div className="mt-10">
         <h1 className="text-2xl font-bold">Latest Post</h1>
-        <div></div>
+        <div>
+          <button
+            className="btn"
+            onClick={() => {
+              superagent
+                .post("/api/user")
+                .set("Content-Type", "application/json")
+                .send({
+                  email: "thanhtu3@gmail.com",
+                  name: "thnhtu3",
+                  address: "HCMC",
+                })
+                .then((res) => {
+                  console.log(res);
+                });
+            }}
+          >
+            Click me!
+          </button>
+        </div>
       </div>
     </div>
   );
