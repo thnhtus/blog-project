@@ -1,5 +1,5 @@
 import React from "react";
-import style from "./style.module.css";
+import Link from "next/link";
 
 const Header: React.FC = () => {
   return (
@@ -78,7 +78,10 @@ const Header: React.FC = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn px-[50px]">Login</a>
+        <Link className="btn px-[50px]" href="/blog/new">
+          Add Post
+        </Link>
+        {/* <a className="btn px-[50px]">Login</a> */}
       </div>
     </header>
   );
