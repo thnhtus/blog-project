@@ -1,13 +1,18 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import superagent from "superagent";
+import { useGetUsersQuery } from "@/services/user";
 
 const HomePage: React.FC = () => {
-  useEffect(() => {
-    superagent.get("/api/user").then((res) => {
-      console.log(res.body);
-    });
-  }, []);
+  // useEffect(() => {
+  //   superagent.get("/api/user").then((res) => {
+  //     console.log(res.body);
+  //   });
+  // }, []);
+
+  const { data, isLoading, isSuccess, isError } = useGetUsersQuery({});
+
+  console.log(data);
 
   return (
     <div className="mt-6">
