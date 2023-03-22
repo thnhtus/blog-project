@@ -1,3 +1,4 @@
 import userApi from "./user";
+import registerApi from "./register";
 
-export { userApi };
+export { userApi, registerApi };

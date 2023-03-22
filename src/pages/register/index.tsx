@@ -1,4 +1,5 @@
-import { UserRegister } from "@/models/user";
+import { User, UserRegister } from "@/models/user";
+import { useRegisterMutation } from "@/services/register";
 import classNames from "classnames";
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
@@ -15,6 +16,8 @@ const RegisterPage: React.FC = () => {
   //--------------------------------------------------------------------
 
   const [passwordError, setPasswordError] = useState<boolean>(false);
+
+  const [register, { isLoading }] = useRegisterMutation();
 
   const registerReducer = (prev: UserRegister, next: Partial<UserRegister>) => {
     return { ...prev, ...next };
@@ -34,7 +37,10 @@ const RegisterPage: React.FC = () => {
   }, [registerUser.confirmPassword, registerUser.password]);
 
   const handleRegisterUser = async () => {
-    console.log(registerUser);
+    delete registerUser.confirmPassword;
+
+    await register(registerUser).unwrap();
+    updateRegisterUser(initialRegisterUser);
   };
 
   //-------------------------------------------------------------------
@@ -66,6 +72,9 @@ const RegisterPage: React.FC = () => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full "
+              onChange={(e) =>
+                updateRegisterUser({ ...registerUser, name: e.target.value })
+              }
             />
           </div>
           <div className="form-control">
@@ -76,6 +85,9 @@ const RegisterPage: React.FC = () => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full "
+              onChange={(e) =>
+                updateRegisterUser({ ...registerUser, email: e.target.value })
+              }
             />
           </div>
           <div className="form-control">
@@ -86,6 +98,9 @@ const RegisterPage: React.FC = () => {
               type="text"
               placeholder="Type here"
               className="input input-bordered w-full "
+              onChange={(e) =>
+                updateRegisterUser({ ...registerUser, address: e.target.value })
+              }
             />
           </div>
           <div className="form-control">
@@ -137,7 +152,10 @@ const RegisterPage: React.FC = () => {
           </div>
         </div>
         <div className="text-left">
-          <button className="btn px-10 text" onClick={handleRegisterUser}>
+          <button
+            className={classNames("btn px-10 text", { loading: isLoading })}
+            onClick={handleRegisterUser}
+          >
             Sign up
           </button>
         </div>

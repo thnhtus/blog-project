@@ -9,5 +9,5 @@ export interface User {
 export interface UserResponse extends Omit<User, "password"> {}
 
 export interface UserRegister extends Omit<User, "id"> {
-  confirmPassword: string;
+  confirmPassword?: string;
 }
