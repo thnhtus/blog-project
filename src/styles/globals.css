@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 body {
-  @apply px-[300px];
+  /* @apply px-[200px]; */
 }
 
 html,

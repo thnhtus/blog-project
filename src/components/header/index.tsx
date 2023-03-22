@@ -78,10 +78,15 @@ const Header: React.FC = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <Link className="btn px-[50px]" href="/blog/new">
+        {/* <Link className="btn px-[50px]" href="/blog/new">
           Add Post
-        </Link>
-        {/* <a className="btn px-[50px]">Login</a> */}
+        </Link> */}
+        <div className="flex gap-5">
+          <Link className="btn btn-outline px-[50px]" href="/register">
+            Register
+          </Link>
+          <a className="btn px-[50px]">Login</a>
+        </div>
       </div>
     </header>
   );

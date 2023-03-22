@@ -5,11 +5,12 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head />
-
       <body>
         <Header />
-        <Main />
-        <NextScript />
+        <div className="px-[200px]">
+          <Main />
+          <NextScript />
+        </div>
       </body>
     </Html>
   );
