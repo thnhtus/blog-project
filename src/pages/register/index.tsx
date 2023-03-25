@@ -4,6 +4,7 @@ import { handleToast } from "@/utils/helper";
 import classNames from "classnames";
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
+import { useRouter } from "next/router";
 
 const RegisterPage: React.FC = () => {
   const initialRegisterUser: UserRegister = {
@@ -15,6 +16,7 @@ const RegisterPage: React.FC = () => {
   };
 
   //--------------------------------------------------------------------
+  const router = useRouter();
 
   const [passwordError, setPasswordError] = useState<boolean>(false);
 
@@ -46,6 +48,8 @@ const RegisterPage: React.FC = () => {
         updateRegisterUser(initialRegisterUser);
 
         handleToast("Register user success!", "success");
+
+        router.push("/home");
       })
       .catch(() => {
         handleToast("Register user error!", "error");
