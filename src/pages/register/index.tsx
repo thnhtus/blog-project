@@ -1,5 +1,6 @@
 import { User, UserRegister } from "@/models/user";
 import { useRegisterMutation } from "@/services/register";
+import { handleToast } from "@/utils/helper";
 import classNames from "classnames";
 import Image from "next/image";
 import React, { useEffect, useReducer, useState } from "react";
@@ -39,8 +40,16 @@ const RegisterPage: React.FC = () => {
   const handleRegisterUser = async () => {
     delete registerUser.confirmPassword;
 
-    await register(registerUser).unwrap();
-    updateRegisterUser(initialRegisterUser);
+    await register(registerUser)
+      .unwrap()
+      .then(() => {
+        updateRegisterUser(initialRegisterUser);
+
+        handleToast("Register user success!", "success");
+      })
+      .catch(() => {
+        handleToast("Register user error!", "error");
+      });
   };
 
   //-------------------------------------------------------------------
@@ -75,6 +84,7 @@ const RegisterPage: React.FC = () => {
               onChange={(e) =>
                 updateRegisterUser({ ...registerUser, name: e.target.value })
               }
+              value={registerUser.name}
             />
           </div>
           <div className="form-control">
@@ -88,6 +98,7 @@ const RegisterPage: React.FC = () => {
               onChange={(e) =>
                 updateRegisterUser({ ...registerUser, email: e.target.value })
               }
+              value={registerUser.email}
             />
           </div>
           <div className="form-control">
@@ -101,6 +112,7 @@ const RegisterPage: React.FC = () => {
               onChange={(e) =>
                 updateRegisterUser({ ...registerUser, address: e.target.value })
               }
+              value={registerUser.address}
             />
           </div>
           <div className="form-control">
@@ -120,6 +132,7 @@ const RegisterPage: React.FC = () => {
                   password: e.target.value,
                 });
               }}
+              value={registerUser.password}
             />
           </div>
           <div className="form-control">
@@ -139,6 +152,7 @@ const RegisterPage: React.FC = () => {
                   confirmPassword: e.target.value,
                 });
               }}
+              value={registerUser.confirmPassword}
             />
             <>
               {passwordError ? (

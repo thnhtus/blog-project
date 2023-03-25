@@ -25,9 +25,9 @@ export default async function registerHandler(
         },
       });
 
-      res.status(200).send(result.id);
+      res.status(200).send({ id: result.id });
     } catch (error) {
-      res.status(502).send(error);
+      res.status(502).send({ error: error });
     }
   }
 }
