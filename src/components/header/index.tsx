@@ -85,7 +85,9 @@ const Header: React.FC = () => {
           <Link className="btn btn-outline px-[50px]" href="/register">
             Register
           </Link>
-          <a className="btn px-[50px]">Login</a>
+          <Link className="btn px-[50px]" href="/login">
+            Login
+          </Link>
         </div>
       </div>
     </header>

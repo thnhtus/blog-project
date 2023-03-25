@@ -11,3 +11,8 @@ export interface UserResponse extends Omit<User, "password"> {}
 export interface UserRegister extends Omit<User, "id"> {
   confirmPassword?: string;
 }
+
+export interface UserLogin {
+  gmail: string;
+  password: string;
+}
