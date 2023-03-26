@@ -24,8 +24,10 @@ const LoginPage: React.FC = () => {
   const onSubmit: SubmitHandler<UserLogin> = async (data) => {
     login(data)
       .unwrap()
-      .then(() => {
+      .then((res) => {
         handleToast("Login success!", "success");
+
+        localStorage.setItem("USER", JSON.stringify(res));
 
         router.push("/home");
       })
