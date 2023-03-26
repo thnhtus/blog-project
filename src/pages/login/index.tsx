@@ -1,7 +1,43 @@
-import Image from "next/image";
 import React from "react";
+import { UserLogin } from "@/models/user";
+import { useLoginMutation } from "@/services/login";
+import { handleToast } from "@/utils/helper";
+import classNames from "classnames";
+import Image from "next/image";
+import { useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form/dist/types";
+import { useRouter } from "next/router";
 
 const LoginPage: React.FC = () => {
+  const router = useRouter();
+
+  const [login, { isLoading }] = useLoginMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserLogin>();
+
+  //--------------------------------------------------------------
+
+  const onSubmit: SubmitHandler<UserLogin> = async (data) => {
+    login(data)
+      .unwrap()
+      .then(() => {
+        handleToast("Login success!", "success");
+
+        router.push("/home");
+      })
+      .catch((error) => {
+        handleToast("Login failed!", "error");
+
+        console.log(error);
+      });
+  };
+
+  //--------------------------------------------------------------
+
   return (
     <div className="flex h-screen">
       <div className="basis-1/2 p-5 flex flex-col">
@@ -16,7 +52,10 @@ const LoginPage: React.FC = () => {
                 Welcome back! Please enter your details
               </p>
             </div>
-            <div className="flex flex-col gap-3">
+            <form
+              className="flex flex-col gap-3"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email:</span>
@@ -24,9 +63,20 @@ const LoginPage: React.FC = () => {
                 <input
                   type="text"
                   placeholder="Enter your email"
-                  className="input input-bordered w-full "
+                  className={classNames("input input-bordered w-full", {
+                    "input-error": errors.email,
+                  })}
+                  {...register("email", { required: true })}
                 />
+                {errors.email ? (
+                  <label className="label">
+                    <span className="label-text text-red-500">
+                      Please input your email!
+                    </span>
+                  </label>
+                ) : null}
               </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Password:</span>
@@ -34,13 +84,29 @@ const LoginPage: React.FC = () => {
                 <input
                   type="password"
                   placeholder="Enter your password"
-                  className="input input-bordered w-full "
+                  className={classNames("input input-bordered w-full", {
+                    "input-error": errors.password,
+                  })}
+                  {...register("password", { required: true })}
                 />
+                {errors.password ? (
+                  <label className="label">
+                    <span className="label-text text-red-500">
+                      Please input your password!
+                    </span>
+                  </label>
+                ) : null}
               </div>
-              <div>
-                <button className="btn w-full my-5 normal-case">Sign in</button>
-              </div>
-            </div>
+
+              <button
+                type="submit"
+                className={classNames("btn w-full my-5 normal-case", {
+                  loading: isLoading,
+                })}
+              >
+                Sign in
+              </button>
+            </form>
           </div>
         </div>
         <div>

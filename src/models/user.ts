@@ -13,6 +13,6 @@ export interface UserRegister extends Omit<User, "id"> {
 }
 
 export interface UserLogin {
-  gmail: string;
+  email: string;
   password: string;
 }
