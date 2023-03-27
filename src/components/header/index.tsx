@@ -61,10 +61,10 @@ const Header: React.FC = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Home</a>
+            <Link href="/home">Home</Link>
           </li>
           <li>
-            <a>Blog</a>
+            <a>Blogs</a>
           </li>
           <li>
             <a>Single Post</a>
@@ -82,10 +82,13 @@ const Header: React.FC = () => {
           Add Post
         </Link> */}
         <div className="flex gap-5">
-          <Link className="btn btn-outline px-[50px]" href="/register">
+          <Link
+            className="btn btn-outline px-[50px] normal-case"
+            href="/register"
+          >
             Register
           </Link>
-          <Link className="btn px-[50px]" href="/login">
+          <Link className="btn px-[50px] normal-case" href="/login">
             Login
           </Link>
         </div>
