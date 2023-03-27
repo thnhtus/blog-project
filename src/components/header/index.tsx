@@ -1,7 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
+import { useDispatch, useSelector } from "@/hooks";
+import { setUserInfo } from "@/slices/user";
 
 const Header: React.FC = () => {
+  const dispatch = useDispatch();
+
+  const { userInfo } = useSelector((state) => state.user);
+
+  //------------------------------------------------------------
+
+  useEffect(() => {
+    if (window) {
+      const user = localStorage.getItem("USER");
+
+      if (user) dispatch(setUserInfo(JSON.parse(user)));
+    } else {
+      dispatch(setUserInfo(undefined));
+    }
+  }, [dispatch]);
+
+  //-------------------------------------------------------------
+
   return (
     <header className="navbar">
       <div className="navbar-start">
@@ -81,17 +101,25 @@ const Header: React.FC = () => {
         {/* <Link className="btn px-[50px]" href="/blog/new">
           Add Post
         </Link> */}
-        <div className="flex gap-5">
-          <Link
-            className="btn btn-outline px-[50px] normal-case"
-            href="/register"
-          >
-            Register
-          </Link>
-          <Link className="btn px-[50px] normal-case" href="/login">
-            Login
-          </Link>
-        </div>
+        {!userInfo ? (
+          <div className="flex gap-5">
+            <Link
+              className="btn btn-outline px-[50px] normal-case"
+              href="/register"
+            >
+              Register
+            </Link>
+            <Link className="btn px-[50px] normal-case" href="/login">
+              Login
+            </Link>
+          </div>
+        ) : (
+          <div className="avatar online placeholder">
+            <div className="bg-neutral-focus text-neutral-content rounded-full w-8">
+              <span></span>
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
