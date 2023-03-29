@@ -16,6 +16,16 @@ const createNewPost = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 };
 
+const getPosts = async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    const result = await prisma.post.findMany();
+
+    res.status(200).send({ result: result });
+  } catch (error) {
+    res.status(502).send({ error: error });
+  }
+};
+
 export default async function postHandler(
   req: NextApiRequest,
   res: NextApiResponse
@@ -24,7 +34,9 @@ export default async function postHandler(
     case API_METHODS.POST:
       createNewPost(req, res);
       break;
-
+    case API_METHODS.GET:
+      getPosts(req, res);
+      break;
     default:
       break;
   }

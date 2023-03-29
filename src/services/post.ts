@@ -17,13 +17,14 @@ const postApi = createApi({
 
       transformResponse: (response: { result: Post }) => response.result,
     }),
-    getPosts: builder.query({
+    getPosts: builder.query<Post[], void>({
       query: () => {
         return {
           url: "/api/post",
           method: API_METHODS.GET,
         };
       },
+      transformResponse: (response: { result: Post[] }) => response.result,
     }),
   }),
 });

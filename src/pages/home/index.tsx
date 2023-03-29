@@ -1,21 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import superagent from "superagent";
-import { useGetUsersQuery } from "@/services/user";
 import Layout from "@/components/layout";
-import { skipToken } from "@reduxjs/toolkit/dist/query";
+import ListPosts from "@/components/list_posts";
 
 const HomePage: React.FC = () => {
-  // useEffect(() => {
-  //   superagent.get("/api/user").then((res) => {
-  //     console.log(res.body);
-  //   });
-  // }, []);
-
-  const { data, isLoading, isSuccess, isError } = useGetUsersQuery(skipToken);
-
-  console.log(data);
-
   return (
     <Layout>
       <div className="mt-6">
@@ -59,26 +47,7 @@ const HomePage: React.FC = () => {
         </div>
         <div className="mt-10">
           <h1 className="text-2xl font-bold">Latest Post</h1>
-          <div>
-            <button
-              className="btn"
-              onClick={() => {
-                superagent
-                  .post("/api/user")
-                  .set("Content-Type", "application/json")
-                  .send({
-                    email: "thanhtu3@gmail.com",
-                    name: "thnhtu3",
-                    address: "HCMC",
-                  })
-                  .then((res) => {
-                    console.log(res);
-                  });
-              }}
-            >
-              Click me!
-            </button>
-          </div>
+          <ListPosts />
         </div>
       </div>
     </Layout>
