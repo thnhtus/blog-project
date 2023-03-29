@@ -7,9 +7,9 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
   return (
-    <div>
+    <div className="px-[300px]">
       <Header />
-      <div className="px-[200px]">{children}</div>
+      <div>{children}</div>
     </div>
   );
 };
