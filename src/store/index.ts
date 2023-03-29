@@ -1,4 +1,4 @@
-import { registerApi, userApi } from "@/services";
+import { postApi, registerApi, userApi } from "@/services";
 import loginApi from "@/services/login";
 import { configureStore } from "@reduxjs/toolkit";
 import appReducers from "@/slices";
@@ -8,6 +8,7 @@ const store = configureStore({
     [registerApi.reducerPath]: registerApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [loginApi.reducerPath]: loginApi.reducer,
+    [postApi.reducerPath]: postApi.reducer,
     ...appReducers,
   },
   middleware: (getDefaultMiddleware) =>
@@ -15,6 +16,7 @@ const store = configureStore({
       userApi.middleware,
       registerApi.middleware,
       loginApi.middleware,
+      postApi.middleware,
     ]),
 });
 

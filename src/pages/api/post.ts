@@ -5,11 +5,15 @@ import { API_METHODS } from "@/utils/constant";
 const prisma = new PrismaClient();
 
 const createNewPost = async (req: NextApiRequest, res: NextApiResponse) => {
-  await prisma.post.create({
-    data: { ...req.body },
-  });
+  try {
+    const result = await prisma.post.create({
+      data: { ...req.body },
+    });
 
-  res.status(200).send("Post created!");
+    res.status(200).send({ result: result });
+  } catch (error) {
+    res.status(502).send({ error: error });
+  }
 };
 
 export default async function postHandler(

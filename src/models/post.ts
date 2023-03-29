@@ -1,8 +1,11 @@
 import { User } from "./user";
 
-export interface NewPost {
+export interface Post {
+  id: string;
   title: string;
   cover_image?: string;
-  body: string;
+  content: string;
   authorId?: string;
 }
+
+export type NewPost = Omit<Post, "id">;
